@@ -16,6 +16,7 @@ function PostDetail({
     image_url,
     likes = 0,
 }) {
+    const apiUrl = import.meta.env.VITE_API_URL;
     const [liked, setLiked] = useState(false);
     const [shared, setShared] = useState(false);
     const [commented, setComment] = useState(false);
@@ -50,7 +51,7 @@ function PostDetail({
 
         if (!comment) return;
 
-        fetchData(`http://localhost:3000/api/posts/${id}/comments`, {
+        fetchData(`${apiUrl}api/posts/${id}/comments`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -4,8 +4,9 @@ import Post from './Post';
 
 export default function PostList() {
     const [posts, setPosts] = useState([]);
+    const apiUrl = import.meta.env.VITE_API_URL;
     useEffect(() => {
-        fetchData('http://localhost:3000/api/posts')
+        fetchData(`${apiUrl}api/posts`)
             .then((data) => setPosts(data.posts ?? []))
             .catch(() => {});
     }, []);

@@ -8,9 +8,10 @@ export const PostDetails = () => {
     const {id} = useParams();
     const [post, setPost] = useState(null);
     const [error, setError] = useState();
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
-        fetchData(`http://localhost:3000/api/posts/${id}`)
+        fetchData(`${apiUrl}api/posts/${id}`)
             .then((data) => setPost(data.post))
             .catch((error) => setError(error));
     }, [id]);
