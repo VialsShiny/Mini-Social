@@ -8,11 +8,12 @@ export const AuthProviders = ({children}) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [token, setToken] = useState(localStorage.getItem('token') || null);
     const [loading, setLoading] = useState(true);
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
         async function validateToken() {
             if (!token) return setLoading(false);
-            fetchData('http://localhost:3000/api/auth/me', {
+            fetchData(`${apiUrl}api/auth/me`, {
                 headers: {Authorization: `Bearer ${token}`},
             })
                 .then((data) => {

@@ -19,9 +19,10 @@ export default function SignIn() {
 
     function handleSubmit(e) {
         e.preventDefault();
+        const apiUrl = import.meta.env.VITE_API_URL;
 
         try {
-            fetchData('http://localhost:3000/api/auth/login', {
+            fetchData(`${apiUrl}api/auth/login`, {
                 method: 'POST',
                 header: {
                     'Content-Type': 'application/json',

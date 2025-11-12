@@ -7,13 +7,14 @@ import FormatForm from '../components/FormatForm';
 
 async function handleComment(setComment, event, username, id) {
     event.preventDefault();
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     const [comment] = FormatForm(event);
 
     if (!comment) return;
 
     console.log(id);
-    fetchData(`http://localhost:3000/api/posts/${id}/comments`, {
+    fetchData(`${apiUrl}api/posts/${id}/comments`, {
         method: 'POST',
         header: {
             'Content-Type': 'application/json',

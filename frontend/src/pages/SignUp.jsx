@@ -17,8 +17,10 @@ export default function SignUp() {
 
     function handleSubmit(e) {
         e.preventDefault();
+        const apiUrl = import.meta.env.VITE_API_URL;
+
         try {
-            fetchData('http://localhost:3000/api/auth/register', {
+            fetchData(`${apiUrl}api/auth/register`, {
                 method: 'POST',
                 header: {
                     'Content-Type': 'application/json',
