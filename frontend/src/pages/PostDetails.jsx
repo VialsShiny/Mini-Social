@@ -3,8 +3,9 @@ import {useParams} from 'react-router-dom';
 import {fetchData} from '../components/Fetch';
 import {Loader} from '../components/Loader';
 import PostDetail from '../components/PostDetail';
+import {Helmet} from 'react-helmet';
 
-export const PostDetails = () => {
+export default function PostDetails() {
     const {id} = useParams();
     const [post, setPost] = useState(null);
     const [error, setError] = useState();
@@ -31,18 +32,65 @@ export const PostDetails = () => {
     if (!post) return <Loader loader="dote" />;
 
     return (
-        <div className="w-full h-fit md:h-[80vh] py-12 md:py-12 flex justify-center items-center">
-            <PostDetail
-                author={post.author}
-                author_image_url={post.author_image_url}
-                comments={post.comments}
-                content={post.content}
-                created_at={post.created_at}
-                id={post.id}
-                image_url={post.image_url}
-                likes={post.likes}
-                key={post.id}
-            />
-        </div>
+        <>
+            <Helmet>
+                <title>{`${post.author} — Mini Social`}</title>
+                <meta
+                    name="description"
+                    content={
+                        post.content?.slice(0, 150) ||
+                        `Découvrez le post de ${post.author} sur Mini Social.`
+                    }
+                />
+
+                {/* Open Graph */}
+                <meta
+                    property="og:title"
+                    content={`${post.author} — Mini Social`}
+                />
+                <meta
+                    property="og:description"
+                    content={
+                        post.content?.slice(0, 150) ||
+                        `Découvrez le post de ${post.author} sur Mini Social.`
+                    }
+                />
+                {post.image_url && (
+                    <meta property="og:image" content={post.image_url} />
+                )}
+                <meta property="og:type" content="article" />
+
+                {/* Twitter */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta
+                    name="twitter:title"
+                    content={`${post.author} — Mini Social`}
+                />
+                <meta
+                    name="twitter:description"
+                    content={
+                        post.content?.slice(0, 150) ||
+                        `Découvrez le post de ${post.author} sur Mini Social.`
+                    }
+                />
+                {post.image_url && (
+                    <meta name="twitter:image" content={post.image_url} />
+                )}
+            </Helmet>
+
+            <div className="w-full h-fit md:h-[80vh] py-12 md:py-12 flex justify-center items-center">
+                <PostDetail
+                    author={post.author}
+                    author_image_url={post.author_image_url}
+                    comments={post.comments}
+                    content={post.content}
+                    created_at={post.created_at}
+                    id={post.id}
+                    image_url={post.image_url}
+                    likes={post.likes}
+                    key={post.id}
+                />
+            </div>
+        </>
     );
-};
+}

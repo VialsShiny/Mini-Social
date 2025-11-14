@@ -58,9 +58,9 @@ function PostDetail({
                 Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify({comment: comment}),
-        })
-            .then((data) => console.log('commentaire Ajouté !' + data))
-            .catch(() => {});
+        }).catch((error) => {
+            console.error(error);
+        });
 
         setComment((prev) => [
             ...prev,
@@ -75,8 +75,6 @@ function PostDetail({
         event.target.reset();
     }
 
-    console.log(IsOpen);
-
     return (
         <div className="w-full max-h-[85vh] mx-12 flex gap-6 bg-white/80 justify-center md:flex-row flex-col">
             {/* Post */}
@@ -87,10 +85,11 @@ function PostDetail({
                 <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-white flex-shrink-0">
                     <div className="flex items-center gap-3">
                         <img
-                            src={authorPP}
+                            src={`${authorPP}.webp`}
                             alt={author || 'avatar'}
                             className="w-12 h-12 rounded-full object-cover border border-gray-100 shadow-sm"
                             loading="lazy"
+                            fetchpriority="high"
                         />
                         <div className="text-sm leading-tight">
                             <div className="font-semibold text-gray-800">
@@ -114,10 +113,11 @@ function PostDetail({
 
                 {image_url ? (
                     <img
-                        src={image_url}
+                        src={`${image_url}.webp`}
                         alt={content.slice(0, 120) || 'post image'}
                         className="w-full max-h-[50vh] object-contain bg-black border-y border-gray-100 flex-shrink-0"
                         loading="lazy"
+                        fetchpriority="high"
                     />
                 ) : (
                     <div className="w-full h-64 bg-gray-50 flex items-center justify-center text-gray-300 border-y border-gray-100 flex-shrink-0">
@@ -270,10 +270,11 @@ function PostDetail({
                             }}
                         >
                             <img
-                                src={currentUserPP}
+                                src={`${currentUserPP}.webp`}
                                 alt="you"
                                 className="w-9 h-9 rounded-full object-cover flex-shrink-0"
                                 loading="lazy"
+                                fetchpriority="low"
                             />
                             <input
                                 type="text"

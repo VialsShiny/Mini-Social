@@ -1,0 +1,15 @@
+# Bloquer tous les robots pour tout le site
+User-agent: *
+Disallow: /
+
+# Autoriser tous les robots pour tout le site
+# User-agent: *
+# Disallow:
+
+# Bloquer un dossier spécifique
+User-agent: *
+Disallow: /admin/
+
+# Autoriser un robot spécifique
+User-agent: Googlebot
+Allow: /public/

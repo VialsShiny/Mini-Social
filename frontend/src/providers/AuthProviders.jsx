@@ -23,6 +23,7 @@ export const AuthProviders = ({children}) => {
                 })
                 .catch((error) => {
                     setLoading(false);
+                    localStorage.removeItem('token');
                     console.log(error);
                 });
         }

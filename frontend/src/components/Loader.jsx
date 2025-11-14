@@ -362,6 +362,55 @@ export const Loader = ({loader = ''}) => {
                 </div>
             );
 
+        case 'post-load':
+            return (
+                <article className="max-w-lg w-full mx-auto bg-white rounded-lg shadow-md overflow-hidden font-sans animate-pulse">
+                    {/* Header auteur */}
+                    <div className="flex items-center justify-between p-3">
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-full bg-gray-300"></div>
+
+                            <div className="space-y-1">
+                                <div className="w-24 h-3 bg-gray-300 rounded"></div>
+                                <div className="w-16 h-2 bg-gray-200 rounded"></div>
+                            </div>
+                        </div>
+
+                        <div className="w-4 h-4 bg-gray-300 rounded"></div>
+                    </div>
+
+                    {/* Image du post */}
+                    <div className="w-full h-64 bg-gray-300"></div>
+
+                    {/* Contenu */}
+                    <div className="p-3">
+                        {/* Boutons */}
+                        <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-4">
+                                <div className="w-6 h-6 bg-gray-300 rounded"></div>
+                                <div className="w-6 h-6 bg-gray-300 rounded"></div>
+                                <div className="w-6 h-6 bg-gray-300 rounded"></div>
+                            </div>
+
+                            <div className="w-6 h-6 bg-gray-300 rounded"></div>
+                        </div>
+
+                        {/* Likes */}
+                        <div className="w-32 h-3 bg-gray-300 rounded mb-3"></div>
+
+                        {/* Texte */}
+                        <div className="space-y-2 mb-3">
+                            <div className="w-20 h-3 bg-gray-300 rounded"></div>
+                            <div className="w-full h-3 bg-gray-200 rounded"></div>
+                            <div className="w-3/4 h-3 bg-gray-200 rounded"></div>
+                        </div>
+
+                        {/* Date */}
+                        <div className="w-16 h-2 bg-gray-300 rounded"></div>
+                    </div>
+                </article>
+            );
+
         default:
             return (
                 <div className="flex items-center justify-center h-screen">
