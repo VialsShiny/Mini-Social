@@ -2,14 +2,62 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+        <title>Mini Social - Mini réseau social interactif</title>
+        <meta
+            name="description"
+            content="Mini Social est un mini réseau social interactif offrant un flux de contenus en temps réel pour découvrir de nouveaux posts et interagir facilement avec la communauté."
+        />
+        <meta
+            name="keywords"
+            content="Mini Social, réseau social, React, Express, JavaScript, posts, communauté, flux en temps réel"
+        />
+        <meta name="author" content="Thibault Vialatou - VialsShiny" />
+
+        <!-- Open Graph / Facebook -->
+        <meta
+            property="og:title"
+            content="Mini Social - Mini réseau social interactif"
+        />
+        <meta
+            property="og:description"
+            content="Mini Social offre un flux de contenus en temps réel pour découvrir de nouveaux posts et interagir avec la communauté."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://mini-social-phi.vercel.app" />
+        <meta
+            property="og:image"
+            content="https://mini-social-phi.vercel.app/og-image.png"
+        />
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+            name="twitter:title"
+            content="Mini Social - Mini réseau social interactif"
+        />
+        <meta
+            name="twitter:description"
+            content="Mini Social offre un flux de contenus en temps réel pour découvrir de nouveaux posts et interagir avec la communauté."
+        />
+        <meta
+            name="twitter:image"
+            content="https://mini-social-phi.vercel.app/og-image.png"
+        />
+
+        <link rel="icon" type="image/svg+xml" href="./public/favicon.ico" />
         <link
             href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css"
             rel="stylesheet"
+            media="print"
+            onload="this.media='all'"
         />
-        <title>Vite + React + Docker</title>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"
+            defer
+        ></script>
     </head>
     <body>
         <div id="root"></div>

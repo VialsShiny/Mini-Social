@@ -42,6 +42,7 @@ function Post({
                             alt={author || 'avatar'}
                             className="w-10 h-10 rounded-full object-cover bg-gray-100"
                             loading="lazy"
+                            fetchpriority="high"
                         />
                         <div className="text-sm leading-tight">
                             <div className="font-medium text-gray-900">
@@ -65,10 +66,11 @@ function Post({
                 {image_url ? (
                     <Link to={`/post/${id}`}>
                         <img
-                            src={image_url}
+                            src={`${image_url}`}
                             alt={content?.slice(0, 120) || 'post image'}
                             className="w-full min-h-1/2 max-h-[70vh] h-fit object-cover bg-gray-200"
                             loading="lazy"
+                            fetchpriority="high"
                         />
                     </Link>
                 ) : (

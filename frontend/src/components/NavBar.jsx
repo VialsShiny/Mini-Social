@@ -23,7 +23,7 @@ export const NavBar = () => {
                     {/* Logo / titre */}
                     <div className="flex-shrink-0">
                         <h1 className="text-xl font-bold text-gray-800">
-                            MyApp
+                            Mini Social
                         </h1>
                     </div>
 
