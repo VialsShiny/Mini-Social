@@ -1,10 +1,10 @@
 import useMediaQuery from '@mui/material/useMediaQuery';
-import {memo, useEffect, useState} from 'react';
-import {useAuth} from '../providers/AuthProviders';
+import { memo, useEffect, useState } from 'react';
+import { useAuth } from '../providers/AuthProviders';
 import ActionButtonsPost from './ActionButtonsPost';
-import {Comments} from './Comments';
-import {DiffDate} from './DiffDate';
-import {fetchData} from './Fetch';
+import { Comments } from './Comments';
+import { DiffDate } from './DiffDate';
+import { fetchData } from './Fetch';
 import FormatForm from './FormatForm';
 
 function PostDetail({
