@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {Helmet} from 'react-helmet';
 import {fetchData} from '../components/Fetch';
 
 export default function SignUp() {
@@ -71,9 +72,9 @@ export default function SignUp() {
                     content="Créez un compte sur Mini Social pour rejoindre la communauté, publier vos posts et interagir avec les autres utilisateurs."
                 />
             </Helmet>
-            <div className="min-h-screen flex items-center justify-center bg-gray-50">
-                <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-md border">
-                    <h2 className="text-2xl font-bold text-center mb-6">
+            <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+                <div className="w-full max-w-sm md:max-w-md bg-white p-6 md:p-8 rounded-2xl shadow-md border">
+                    <h2 className="text-xl md:text-2xl font-bold text-center mb-6">
                         Créer un compte
                     </h2>
 
@@ -91,9 +92,7 @@ export default function SignUp() {
                                 placeholder="Votre pseudo"
                                 className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 placeholder:text-gray-500"
                                 name="username"
-                                onChange={(e) => {
-                                    handleOnChangeInput(e);
-                                }}
+                                onChange={(e) => handleOnChangeInput(e)}
                             />
                         </div>
 
@@ -110,9 +109,7 @@ export default function SignUp() {
                                 placeholder="exemple@email.com"
                                 className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 placeholder:text-gray-500"
                                 name="email"
-                                onChange={(e) => {
-                                    handleOnChangeInput(e);
-                                }}
+                                onChange={(e) => handleOnChangeInput(e)}
                             />
                         </div>
 
@@ -129,9 +126,7 @@ export default function SignUp() {
                                 placeholder="••••••••"
                                 className="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500 placeholder:text-gray-500"
                                 name="password"
-                                onChange={(e) => {
-                                    handleOnChangeInput(e);
-                                }}
+                                onChange={(e) => handleOnChangeInput(e)}
                             />
                         </div>
 

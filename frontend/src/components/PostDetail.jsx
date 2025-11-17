@@ -1,3 +1,4 @@
+import useMediaQuery from '@mui/material/useMediaQuery';
 import {memo, useEffect, useState} from 'react';
 import {useAuth} from '../providers/AuthProviders';
 import ActionButtonsPost from './ActionButtonsPost';
@@ -16,12 +17,14 @@ function PostDetail({
     image_url,
     likes = 0,
 }) {
+    const isDesktop = useMediaQuery('(min-width:1024px)');
+
     const apiUrl = import.meta.env.VITE_API_URL;
     const [liked, setLiked] = useState(false);
     const [shared, setShared] = useState(false);
     const [commented, setComment] = useState(false);
     const [saved, setSaved] = useState(false);
-    const [IsOpen, setIsOpen] = useState(true);
+    const [IsOpen, setIsOpen] = useState(isDesktop);
     const [authorPP, setAuthorPP] = useState(author_image_url);
 
     const {currentUser} = useAuth();
@@ -209,90 +212,189 @@ function PostDetail({
             </article>
 
             {/* Comments */}
-            <aside
-                className={`flex flex-col bg-gray-50 border border-gray-100 rounded-lg shadow-sm transition-all duration-300 ease-in-out ${
-                    IsOpen
-                        ? 'w-[360px] md:max-w-[40%] max-h-[85vh] opacity-100 visible'
-                        : 'w-0 max-w-0 h-0 opacity-0 invisible overflow-hidden border-0'
-                }`}
-            >
-                <div
-                    className={`w-[360px] flex flex-col h-full ${
-                        !IsOpen && 'pointer-events-none'
+            {isDesktop ? (
+                <aside
+                    className={`flex flex-col bg-gray-50 border border-gray-100 rounded-lg shadow-sm transition-all duration-300 ease-in-out ${
+                        IsOpen
+                            ? 'w-[360px] md:max-w-[40%] max-h-[85vh] opacity-100 visible'
+                            : 'w-0 max-w-0 h-0 opacity-0 invisible overflow-hidden border-0'
                     }`}
                 >
-                    <div className="px-4 py-3 border-b border-gray-100 bg-white flex-shrink-0">
-                        <div className="flex items-center justify-between">
-                            <h3 className="text-sm font-semibold text-gray-800 whitespace-nowrap">
-                                Commentaires
-                            </h3>
-                            <button
-                                onClick={() => setIsOpen(false)}
-                                className="text-xs text-gray-500 hover:text-gray-700 whitespace-nowrap"
-                                aria-label="fermer commentaires"
-                            >
-                                Fermer
-                            </button>
-                        </div>
-                        <p className="text-xs text-gray-400 mt-1 whitespace-nowrap">
-                            {`${
-                                newComments.length
-                            } affichés · ${newLikes.toLocaleString()} likes`}
-                        </p>
-                    </div>
-
-                    {/* Scroll area */}
-                    <div className="overflow-y-auto flex-1 px-4 py-3 space-y-3 min-h-0">
-                        {newComments.length > 0 ? (
-                            newComments.map((c, idx) => (
-                                <Comments comment={c} index={idx} key={idx} />
-                            ))
-                        ) : (
-                            <div className="text-center text-gray-500 py-4">
-                                Il n'y a pas de commentaire
+                    <div
+                        className={`w-[360px] flex flex-col h-full ${
+                            !IsOpen && 'pointer-events-none'
+                        }`}
+                    >
+                        <div className="px-4 py-3 border-b border-gray-100 bg-white flex-shrink-0">
+                            <div className="flex items-center justify-between">
+                                <h3 className="text-sm font-semibold text-gray-800 whitespace-nowrap">
+                                    Commentaires
+                                </h3>
+                                <button
+                                    onClick={() => setIsOpen(false)}
+                                    className="text-xs text-gray-500 hover:text-gray-700 whitespace-nowrap"
+                                    aria-label="fermer commentaires"
+                                >
+                                    Fermer
+                                </button>
                             </div>
-                        )}
-                    </div>
+                            <p className="text-xs text-gray-400 mt-1 whitespace-nowrap">
+                                {`${
+                                    newComments.length
+                                } affichés · ${newLikes.toLocaleString()} likes`}
+                            </p>
+                        </div>
 
-                    {/* Input d'ajout de commentaire */}
-                    <div className="px-4 py-3 border-t border-gray-100 bg-white flex-shrink-0">
-                        <form
-                            className="flex items-center gap-3"
-                            onSubmit={(e) => {
-                                handleComment(
-                                    setNewComments,
-                                    e,
-                                    currentToken,
-                                    currentUserName,
-                                    currentUserPP,
-                                    id
-                                );
-                            }}
-                        >
-                            <img
-                                src={`${currentUserPP}.webp`}
-                                alt="you"
-                                className="w-9 h-9 rounded-full object-cover flex-shrink-0"
-                                loading="lazy"
-                                fetchpriority="low"
-                            />
-                            <input
-                                type="text"
-                                placeholder="Ajouter un commentaire..."
-                                className="flex-1 text-sm bg-gray-50 border border-gray-100 rounded-full px-4 py-2 focus:outline-none focus:ring-1 focus:ring-gray-200 min-w-0"
-                                name="comment"
-                            />
-                            <button
-                                type="submit"
-                                className="text-sm font-semibold text-gray-500 hover:text-gray-700 cursor-pointer whitespace-nowrap"
-                                aria-label="envoyer commentaire"
+                        {/* Scroll area */}
+                        <div className="overflow-y-auto flex-1 px-4 py-3 space-y-3 min-h-0">
+                            {newComments.length > 0 ? (
+                                newComments.map((c, idx) => (
+                                    <Comments
+                                        comment={c}
+                                        index={idx}
+                                        key={idx}
+                                    />
+                                ))
+                            ) : (
+                                <div className="text-center text-gray-500 py-4">
+                                    Il n'y a pas de commentaire
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Input d'ajout de commentaire */}
+                        <div className="px-4 py-3 border-t border-gray-100 bg-white flex-shrink-0">
+                            <form
+                                className="flex items-center gap-3"
+                                onSubmit={(e) => {
+                                    handleComment(
+                                        setNewComments,
+                                        e,
+                                        currentToken,
+                                        currentUserName,
+                                        currentUserPP,
+                                        id
+                                    );
+                                }}
                             >
-                                Publier
-                            </button>
-                        </form>
+                                <img
+                                    src={`${currentUserPP}.webp`}
+                                    alt="you"
+                                    className="w-9 h-9 rounded-full object-cover flex-shrink-0"
+                                    loading="lazy"
+                                    fetchpriority="low"
+                                />
+                                <input
+                                    type="text"
+                                    placeholder="Ajouter un commentaire..."
+                                    className="flex-1 text-sm bg-gray-50 border border-gray-100 rounded-full px-4 py-2 focus:outline-none focus:ring-1 focus:ring-gray-200 min-w-0"
+                                    name="comment"
+                                />
+                                <button
+                                    type="submit"
+                                    className="text-sm font-semibold text-gray-500 hover:text-gray-700 cursor-pointer whitespace-nowrap"
+                                    aria-label="envoyer commentaire"
+                                >
+                                    Publier
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            </aside>
+                </aside>
+            ) : (
+                <>
+                    <div
+                        className={`fixed inset-0 bg-black/30 transition-opacity duration-300 ${
+                            IsOpen
+                                ? 'opacity-100 visible'
+                                : 'opacity-0 invisible'
+                        }`}
+                        onClick={() => setIsOpen(false)}
+                    ></div>
+
+                    <aside
+                        className={`z-99 fixed left-0 right-0 bottom-0 bg-white rounded-t-2xl shadow-xl transition-transform duration-300 ease-out flex flex-col ${
+                            IsOpen ? 'translate-y-0' : 'translate-y-full'
+                        } h-full max-h-[88vh]`}
+                    >
+                        {/* Header */}
+                        <div className="px-4 py-3 border-b border-gray-100 bg-white flex-shrink-0">
+                            <div className="flex items-center justify-between">
+                                <h3 className="text-sm font-semibold text-gray-800">
+                                    Commentaires
+                                </h3>
+
+                                <button
+                                    onClick={() => setIsOpen(false)}
+                                    className="text-xs text-gray-500 hover:text-gray-700"
+                                >
+                                    Fermer
+                                </button>
+                            </div>
+
+                            <p className="text-xs text-gray-400 mt-1">
+                                {`${
+                                    newComments.length
+                                } affichés · ${newLikes.toLocaleString()} likes`}
+                            </p>
+                        </div>
+
+                        <div className="overflow-y-auto flex-1 px-4 py-3 space-y-3">
+                            {newComments.length > 0 ? (
+                                newComments.map((c, idx) => (
+                                    <Comments
+                                        comment={c}
+                                        index={idx}
+                                        key={idx}
+                                    />
+                                ))
+                            ) : (
+                                <div className="text-center text-gray-500 py-4">
+                                    Il n'y a pas de commentaire
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Input commentaire */}
+                        <div className="px-4 py-3 border-t border-gray-100 bg-white flex-shrink-0">
+                            <form
+                                className="flex items-center gap-3"
+                                onSubmit={(e) =>
+                                    handleComment(
+                                        setNewComments,
+                                        e,
+                                        currentToken,
+                                        currentUserName,
+                                        currentUserPP,
+                                        id
+                                    )
+                                }
+                            >
+                                <img
+                                    src={`${currentUserPP}.webp`}
+                                    alt="you"
+                                    className="w-9 h-9 rounded-full object-cover"
+                                    loading="lazy"
+                                />
+
+                                <input
+                                    type="text"
+                                    placeholder="Ajouter un commentaire..."
+                                    className="flex-1 text-sm bg-gray-50 border border-gray-100 rounded-full px-4 py-2 focus:outline-none focus:ring-1 focus:ring-gray-200"
+                                    name="comment"
+                                />
+
+                                <button
+                                    type="submit"
+                                    className="text-sm font-semibold text-gray-500 hover:text-gray-700"
+                                >
+                                    Publier
+                                </button>
+                            </form>
+                        </div>
+                    </aside>
+                </>
+            )}
         </div>
     );
 }
