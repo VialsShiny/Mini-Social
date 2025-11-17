@@ -75,9 +75,9 @@ export default function SignIn() {
                     content="Connectez-vous à votre compte Mini Social pour accéder à votre flux de posts et interagir avec la communauté."
                 />
             </Helmet>
-            <div className="min-h-screen flex items-center justify-center bg-gray-50">
-                <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-md border">
-                    <h2 className="text-2xl font-bold text-center mb-6">
+            <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+                <div className="w-full max-w-sm md:max-w-md bg-white p-6 md:p-8 rounded-2xl shadow-md border">
+                    <h2 className="text-xl md:text-2xl font-bold text-center mb-6">
                         Se connecter
                     </h2>
 
@@ -125,7 +125,7 @@ export default function SignIn() {
                             />
                         </div>
 
-                        <div className="flex items-center justify-between">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                             <label className="flex items-center text-sm text-gray-600">
                                 <input
                                     type="checkbox"
