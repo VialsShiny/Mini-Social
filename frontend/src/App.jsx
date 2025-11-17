@@ -4,6 +4,7 @@ import {Loader} from './components/Loader';
 import {NavBar} from './components/NavBar';
 import {ProtectedRoute} from './components/ProtectedRoute';
 import _404 from './pages/errors/_404';
+import Profile from './pages/Profile';
 import {AuthProviders} from './providers/AuthProviders';
 const Home = React.lazy(() => import('./pages/Home'));
 const SignIn = React.lazy(() => import('./pages/SignIn'));
@@ -39,7 +40,7 @@ export default function App() {
                                 path="/profile"
                                 element={
                                     <ProtectedRoute>
-                                        <PostDetails />
+                                        <Profile />
                                     </ProtectedRoute>
                                 }
                             />
