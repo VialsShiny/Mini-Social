@@ -4,32 +4,41 @@ import {useState} from 'react';
 import {Comments} from '../components/Comments';
 import {fetchData} from '../components/Fetch';
 import FormatForm from '../components/FormatForm';
+import {useAuth} from '../providers/AuthProviders';
 
-async function handleComment(setComment, event, username, id) {
+async function handleComment(
+    setComment,
+    event,
+    token,
+    username,
+    user_image_url,
+    id
+) {
     event.preventDefault();
     const apiUrl = import.meta.env.VITE_API_URL;
 
-    const [comment] = FormatForm(event);
+    const {comment} = FormatForm(event);
 
     if (!comment) return;
 
-    console.log(id);
     fetchData(`${apiUrl}api/posts/${id}/comments`, {
         method: 'POST',
-        header: {
+        headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({user: username, comment: comment}),
-    })
-        .then((data) => console.log('commentaire Ajouté !' + data))
-        .catch(() => {});
+        body: JSON.stringify({comment: comment}),
+    }).catch((error) => {
+        console.error(error);
+    });
 
     setComment((prev) => [
         ...prev,
         {
-            user: username,
             comment,
             created_at: new Date().toISOString(),
+            user: username,
+            user_image_url: user_image_url,
         },
     ]);
 
@@ -43,8 +52,12 @@ export default function CommentsModal({
     setComment,
     postId = 0,
 }) {
-    const [randomNum] = useState(() => Math.floor(Math.random() * 50) + 1);
-    const [username] = useState(() => `User${Date.now()}`);
+    const [newComments, setNewComments] = useState(comments);
+    const {currentUser} = useAuth();
+    const currentToken = localStorage.getItem('token') ?? '';
+    const currentUserName = currentUser?.username;
+    const currentUserPP = currentUser?.image_url;
+    const id = postId;
 
     return (
         <Modal
@@ -79,34 +92,54 @@ export default function CommentsModal({
 
                     {/* Comments list */}
                     <div className="flex-1 overflow-y-auto p-4 space-y-3">
-                        {comments.length === 0 && (
+                        {newComments.length === 0 && (
                             <p className="text-gray-400 text-center">
                                 Pas encore de commentaires
                             </p>
                         )}
-                        {comments.map((comment, i) => (
+                        {newComments.map((comment, i) => (
                             <Comments comment={comment} index={i} key={i} />
                         ))}
                     </div>
 
                     {/* Add comment input */}
-                    <form
-                        action="#"
-                        className="p-4 border-t flex items-center gap-2"
-                        onSubmit={(e) =>
-                            handleComment(setComment, e, username, postId)
-                        }
-                    >
-                        <input
-                            type="text"
-                            placeholder="Ajouter un commentaire..."
-                            className="flex-1 border rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-                            name="comment"
-                        />
-                        <button className="text-blue-500 font-semibold">
-                            Envoyer
-                        </button>
-                    </form>
+                    {currentUser ? (
+                        <form
+                            action="#"
+                            className="p-4 border-t flex items-center gap-2"
+                            onSubmit={(e) =>
+                                handleComment(
+                                    setNewComments,
+                                    e,
+                                    currentToken,
+                                    currentUserName,
+                                    currentUserPP,
+                                    id
+                                )
+                            }
+                        >
+                            <input
+                                type="text"
+                                placeholder="Ajouter un commentaire..."
+                                className="flex-1 border rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                name="comment"
+                            />
+                            <button
+                                type="submit"
+                                className="bg-blue-500 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-blue-600 transition-colors"
+                            >
+                                Envoyer
+                            </button>
+                        </form>
+                    ) : (
+                        <div className="p-4 border-t rounded-md bg-gray-50 text-gray-600 text-sm text-center">
+                            <p>
+                                Vous devez être{' '}
+                                <span className="font-semibold">connecté</span>{' '}
+                                pour accéder à cette fonctionnalité
+                            </p>
+                        </div>
+                    )}
                 </div>
             </Box>
         </Modal>
