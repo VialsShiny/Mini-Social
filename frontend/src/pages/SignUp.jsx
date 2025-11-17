@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {Helmet} from 'react-helmet';
 import {fetchData} from '../components/Fetch';
 
 export default function SignUp() {

@@ -28,7 +28,7 @@ export default function PostList() {
     }
 
     return (
-        <div className="flex flex-wrap gap-12 my-12">
+        <div className="flex flex-wrap gap-12 lg:my-12 my-18">
             {posts.map((post) => (
                 <Post
                     key={post.id}
