@@ -3,6 +3,7 @@ import {useState} from 'react';
 import {MdEdit} from 'react-icons/md';
 import {Loader} from '../components/Loader';
 import MobileOverlay from '../components/MobileOverlay';
+import ProfileForm from '../components/ProfileForm';
 import {useAuth} from '../providers/AuthProviders';
 
 export default function ProfilePage() {
@@ -14,6 +15,9 @@ export default function ProfilePage() {
     const {username, image_url, email, created_at} = currentUser;
     const [token, setToken] = useState(localStorage.getItem('token') || null);
     const [locationData] = useState(location.state);
+    const apiUrl = import.meta.env.VITE_API_URL;
+
+    function handleUpdateProfil(event, name, id) {}
 
     function handleLogOut() {
         localStorage.clear();
@@ -84,63 +88,9 @@ export default function ProfilePage() {
                 </div>
             </div>
 
-            {isOpen ? (
-                // Card Edit Profil
-                isDesktop ? (
-                    <div className="bg-white shadow-md rounded-lg w-full max-w-md p-6 flex flex-col items-center overflow-hidden">
-                        {/* Photo de profil */}
-                        <div className="relative mb-6">
-                            <img
-                                src={image_url}
-                                alt="Profile"
-                                className="w-24 h-24 rounded-full object-cover border-4 border-gray-200"
-                            />
-                            <button className="absolute bottom-0 right-0 bg-blue-500 text-white rounded-full p-2 hover:bg-blue-600 transition shadow-lg">
-                                <MdEdit />
-                            </button>
-                        </div>
-
-                        {/* Nom d'utilisateur */}
-                        <div className="w-full mb-4">
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Nom d'utilisateur
-                            </label>
-                            <input
-                                type="text"
-                                defaultValue={username}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                placeholder="Votre nom d'utilisateur"
-                            />
-                        </div>
-
-                        {/* URL Avatar */}
-                        <div className="w-full mb-6">
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                URL de la photo de profil
-                            </label>
-                            <input
-                                type="text"
-                                defaultValue={image_url}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                placeholder="https://exemple.com/avatar.jpg"
-                            />
-                        </div>
-
-                        {/* Boutons */}
-                        <div className="w-full flex gap-3">
-                            <button
-                                className="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-300 transition"
-                                onClick={() => setIsOpen(false)}
-                            >
-                                Annuler
-                            </button>
-                            <button className="flex-1 bg-blue-500 text-white py-2 rounded-lg font-medium hover:bg-blue-600 transition">
-                                Sauvegarder
-                            </button>
-                        </div>
-                    </div>
-                ) : (
-                    <>
+            {isOpen && (
+                <>
+                    {!isDesktop && (
                         <div
                             className={`fixed inset-0 bg-black/30 transition-opacity duration-300 z-40 ${
                                 isOpen
@@ -148,68 +98,31 @@ export default function ProfilePage() {
                                     : 'opacity-0 invisible'
                             }`}
                             onClick={() => setIsOpen(false)}
-                        ></div>
+                        />
+                    )}
 
+                    {isDesktop ? (
+                        <div className="bg-white shadow-md rounded-lg w-full max-w-md p-6 flex flex-col items-center overflow-hidden z-50">
+                            <ProfileForm
+                                username={username}
+                                image_url={image_url}
+                                onClose={() => setIsOpen(false)}
+                            />
+                        </div>
+                    ) : (
                         <MobileOverlay
                             IsOpen={isOpen}
                             setIsOpen={setIsOpen}
                             title="Modifier le profil"
                         >
-                            {/* Photo de profil */}
-                            <div className="relative mb-6 flex justify-center px-4 py-3">
-                                <img
-                                    src={image_url}
-                                    alt="Profile"
-                                    className="w-24 h-24 rounded-full object-cover border-4 border-gray-200"
-                                />
-                                <button className="absolute bottom-0 right-1/2 translate-x-12 bg-blue-500 text-white rounded-full p-2 hover:bg-blue-600 transition shadow-lg">
-                                    <MdEdit />
-                                </button>
-                            </div>
-
-                            {/* Nom d'utilisateur */}
-                            <div className="w-full mb-4 px-4 py-3">
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Nom d'utilisateur
-                                </label>
-                                <input
-                                    type="text"
-                                    defaultValue={username}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                    placeholder="Votre nom d'utilisateur"
-                                />
-                            </div>
-
-                            {/* URL Avatar */}
-                            <div className="w-full mb-6 px-4 py-3">
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    URL de la photo de profil
-                                </label>
-                                <input
-                                    type="text"
-                                    defaultValue={image_url}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                    placeholder="https://exemple.com/avatar.jpg"
-                                />
-                            </div>
-
-                            {/* Boutons */}
-                            <div className="w-full flex gap-3 px-4 py-3">
-                                <button
-                                    className="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-300 transition"
-                                    onClick={() => setIsOpen(false)}
-                                >
-                                    Annuler
-                                </button>
-                                <button className="flex-1 bg-blue-500 text-white py-2 rounded-lg font-medium hover:bg-blue-600 transition">
-                                    Sauvegarder
-                                </button>
-                            </div>
+                            <ProfileForm
+                                username={username}
+                                image_url={image_url}
+                                onClose={() => setIsOpen(false)}
+                            />
                         </MobileOverlay>
-                    </>
-                )
-            ) : (
-                ''
+                    )}
+                </>
             )}
         </div>
     );
