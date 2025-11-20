@@ -32,7 +32,7 @@ export default function ProfilePage() {
     return (
         <div className="bg-gray-100 min-h-screen flex flex-col items-center p-6 space-y-6">
             {/* Card Profil */}
-            <div className="bg-white shadow-md rounded-lg w-full max-w-md p-6 flex flex-col items-center">
+            <div className="bg-white shadow-md rounded-lg w-full max-w-md p-6 flex flex-col items-center z-30">
                 {/* Avatar avec bouton edit */}
                 <div className="relative">
                     <img
@@ -49,16 +49,10 @@ export default function ProfilePage() {
                 </div>
 
                 {/* Nom avec bouton edit */}
-                <div className="mt-4 flex items-center gap-2 group">
+                <div className="mt-4 flex items-center gap-2">
                     <h2 className="text-2xl font-semibold text-gray-800">
                         {username}
                     </h2>
-                    <button
-                        className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-blue-500 transition"
-                        onClick={() => setIsOpen((prev) => !prev)}
-                    >
-                        <MdEdit />
-                    </button>
                 </div>
 
                 {/* Email */}
@@ -88,41 +82,41 @@ export default function ProfilePage() {
                 </div>
             </div>
 
-            {isOpen && (
-                <>
-                    {!isDesktop && (
-                        <div
-                            className={`fixed inset-0 bg-black/30 transition-opacity duration-300 z-40 ${
-                                isOpen
-                                    ? 'opacity-100 visible'
-                                    : 'opacity-0 invisible'
-                            }`}
-                            onClick={() => setIsOpen(false)}
-                        />
-                    )}
+            {!isDesktop && (
+                <div
+                    className={`fixed inset-0 bg-black/30 transition-opacity duration-300 z-40 ${
+                        isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+                    }`}
+                    onClick={() => setIsOpen(false)}
+                />
+            )}
 
-                    {isDesktop ? (
-                        <div className="bg-white shadow-md rounded-lg w-full max-w-md p-6 flex flex-col items-center overflow-hidden z-50">
-                            <ProfileForm
-                                username={username}
-                                image_url={image_url}
-                                onClose={() => setIsOpen(false)}
-                            />
-                        </div>
-                    ) : (
-                        <MobileOverlay
-                            IsOpen={isOpen}
-                            setIsOpen={setIsOpen}
-                            title="Modifier le profil"
-                        >
-                            <ProfileForm
-                                username={username}
-                                image_url={image_url}
-                                onClose={() => setIsOpen(false)}
-                            />
-                        </MobileOverlay>
-                    )}
-                </>
+            {isDesktop ? (
+                <div
+                    className={`bg-white shadow-md rounded-lg w-full p-6 max-w-md flex flex-col items-center overflow-hidden z-1 transition-all duration-500 ${
+                        isOpen
+                            ? 'translate-0 scale-100'
+                            : '-translate-y-100 scale-5'
+                    }`}
+                >
+                    <ProfileForm
+                        username={username}
+                        image_url={image_url}
+                        onClose={() => setIsOpen(false)}
+                    />
+                </div>
+            ) : (
+                <MobileOverlay
+                    IsOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                    title="Modifier le profil"
+                >
+                    <ProfileForm
+                        username={username}
+                        image_url={image_url}
+                        onClose={() => setIsOpen(false)}
+                    />
+                </MobileOverlay>
             )}
         </div>
     );
