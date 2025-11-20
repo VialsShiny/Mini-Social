@@ -5,6 +5,7 @@ import {Loader} from '../components/Loader';
 import MobileOverlay from '../components/MobileOverlay';
 import ProfileForm from '../components/ProfileForm';
 import {useAuth} from '../providers/AuthProviders';
+import { Helmet } from 'react-helmet';
 
 export default function ProfilePage() {
     const isDesktop = useMediaQuery('(min-width:1024px)');
