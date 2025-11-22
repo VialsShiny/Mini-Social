@@ -7,6 +7,7 @@ import ActionButtonsPost from '../../ui/ActionButtonsPost';
 import {Comments} from '../../ui/Comments';
 import {DiffDate} from '../../utils/DiffDate';
 import FormatForm from '../../utils/FormatForm';
+import {handleLikes} from '../../utils/HandleLikes';
 
 function PostDetail({
     author = 'default_user',
@@ -18,6 +19,9 @@ function PostDetail({
     image_url,
     likes = 0,
 }) {
+    const userLikes = JSON.parse(localStorage.getItem('userLikes')) || {};
+
+    const [now, setNow] = useState(new Date());
     const isDesktop = useMediaQuery('(min-width:1024px)');
     const apiUrl = import.meta.env.VITE_API_URL;
     const [liked, setLiked] = useState(false);
@@ -34,11 +38,22 @@ function PostDetail({
 
     const [newLikes, setNewLikes] = useState(likes + 1);
     const [newComments, setNewComments] = useState(comments);
+
     useEffect(() => {
-        liked
-            ? setNewLikes((prev) => prev + 1)
-            : setNewLikes((prev) => prev - 1);
+        if (userLikes[id]) setLiked(true);
+    }, []);
+
+    useEffect(() => {
+        handleLikes(setNewLikes, liked, id);
     }, [liked]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setNow(new Date());
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
 
     async function handleComment(
         setComment,
@@ -206,7 +221,10 @@ function PostDetail({
 
                     {/* Date */}
                     <div className="text-xs text-gray-400">
-                        <DiffDate myDate={new Date(created_at)} />
+                        <DiffDate
+                            myDate={new Date(created_at)}
+                            currentTime={now}
+                        />
                     </div>
                 </div>
             </article>
