@@ -1,12 +1,12 @@
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {memo, useEffect, useState} from 'react';
-import {useAuth} from '../providers/AuthProviders';
-import ActionButtonsPost from './ActionButtonsPost';
-import {Comments} from './Comments';
-import {DiffDate} from './DiffDate';
-import {fetchData} from './Fetch';
-import FormatForm from './FormatForm';
-import MobileOverlay from './MobileOverlay';
+import {useAuth} from '../../../providers/AuthProviders';
+import MobileOverlay from '../../layout/MobileOverlay';
+import {fetchData} from '../../services/Fetch';
+import ActionButtonsPost from '../../ui/ActionButtonsPost';
+import {Comments} from '../../ui/Comments';
+import {DiffDate} from '../../utils/DiffDate';
+import FormatForm from '../../utils/FormatForm';
 
 function PostDetail({
     author = 'default_user',

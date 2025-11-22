@@ -1,10 +1,10 @@
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import {useState} from 'react';
-import {Comments} from '../components/Comments';
-import {fetchData} from '../components/Fetch';
-import FormatForm from '../components/FormatForm';
+import {fetchData} from '../components/services/Fetch';
+import FormatForm from '../components/utils/FormatForm';
 import {useAuth} from '../providers/AuthProviders';
+import {Comments} from './../components/ui/Comments';
 
 async function handleComment(
     setComment,

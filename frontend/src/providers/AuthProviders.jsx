@@ -1,6 +1,6 @@
 import {createContext, useContext, useEffect, useState} from 'react';
-import {fetchData} from '../components/Fetch';
-import {Loader} from '../components/Loader';
+import {fetchData} from '../components/services/Fetch';
+import {Loader} from '../components/ui/Loader';
 
 const AuthContext = createContext();
 

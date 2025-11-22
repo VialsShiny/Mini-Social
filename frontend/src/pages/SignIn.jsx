@@ -1,8 +1,8 @@
 import {useState} from 'react';
 import {Helmet} from 'react-helmet';
 import {useLocation, useNavigate} from 'react-router-dom';
-import {fetchData} from '../components/Fetch';
-import validateInput from '../components/ValidateInput';
+import {fetchData} from './../components/services/Fetch';
+import validateInput from './../components/utils/ValidateInput';
 
 export default function SignIn() {
     const [displayError, setDisplayError] = useState({

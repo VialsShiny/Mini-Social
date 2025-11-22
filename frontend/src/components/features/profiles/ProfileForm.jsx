@@ -1,7 +1,7 @@
 import {useRef, useState} from 'react';
 import {MdEdit} from 'react-icons/md';
-import {useAuth} from '../providers/AuthProviders';
-import {fetchData} from './Fetch';
+import {useAuth} from '../../../providers/AuthProviders';
+import {fetchData} from '../../services/Fetch';
 
 export default function ProfileForm({username, image_url, onClose}) {
     const [name, setName] = useState(username);

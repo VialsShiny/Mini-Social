@@ -1,8 +1,8 @@
 import {memo, useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
-import CommentsModal from '../layout/CommentModal';
-import ActionButtonsPost from './ActionButtonsPost';
-import {DiffDate} from './DiffDate';
+import CommentsModal from '../../../layout/CommentModal';
+import {DiffDate} from '../../utils/DiffDate';
+import ActionButtonsPost from './../../ui/ActionButtonsPost';
 
 function Post({
     author = {},
