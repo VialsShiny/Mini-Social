@@ -2,7 +2,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import {useState} from 'react';
 import {FiHome, FiLogIn, FiLogOut, FiUserPlus} from 'react-icons/fi';
 import {Link, useLocation} from 'react-router-dom';
-import {useAuth} from '../providers/AuthProviders';
+import {useAuth} from '../../providers/AuthProviders';
 
 export const NavBar = () => {
     const location = useLocation();

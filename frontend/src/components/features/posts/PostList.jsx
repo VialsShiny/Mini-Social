@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
-import {fetchData} from './Fetch';
-import {Loader} from './Loader';
+import {fetchData} from '../../services/Fetch';
+import {Loader} from './../../ui/Loader';
 import Post from './Post';
 
 export default function PostList() {

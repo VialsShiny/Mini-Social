@@ -1,11 +1,11 @@
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {useState} from 'react';
+import {Helmet} from 'react-helmet';
 import {MdEdit} from 'react-icons/md';
-import {Loader} from '../components/Loader';
-import MobileOverlay from '../components/MobileOverlay';
-import ProfileForm from '../components/ProfileForm';
+import ProfileForm from '../components/features/profiles/ProfileForm';
+import MobileOverlay from '../components/layout/MobileOverlay';
+import {Loader} from '../components/ui/Loader';
 import {useAuth} from '../providers/AuthProviders';
-import { Helmet } from 'react-helmet';
 
 export default function ProfilePage() {
     const isDesktop = useMediaQuery('(min-width:1024px)');

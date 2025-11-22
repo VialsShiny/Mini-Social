@@ -1,9 +1,9 @@
 import {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
-import {fetchData} from '../components/Fetch';
-import {Loader} from '../components/Loader';
-import PostDetail from '../components/PostDetail';
 import {Helmet} from 'react-helmet';
+import {useParams} from 'react-router-dom';
+import PostDetail from '../components/features/posts/PostDetail';
+import {fetchData} from '../components/services/Fetch';
+import {Loader} from '../components/ui/Loader';
 
 export default function PostDetails() {
     const {id} = useParams();

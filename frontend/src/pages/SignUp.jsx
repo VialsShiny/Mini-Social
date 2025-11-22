@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {Helmet} from 'react-helmet';
-import {fetchData} from '../components/Fetch';
-import validateInput from '../components/ValidateInput';
+import {fetchData} from '../components/services/Fetch';
+import validateInput from '../components/utils/ValidateInput';
 
 export default function SignUp() {
     const [formData, setFormData] = useState({
