@@ -2,6 +2,7 @@ import {memo, useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import CommentsModal from '../../../layout/CommentModal';
 import {DiffDate} from '../../utils/DiffDate';
+import {handleLikes} from '../../utils/HandleLikes';
 import ActionButtonsPost from './../../ui/ActionButtonsPost';
 
 function Post({
@@ -14,20 +15,33 @@ function Post({
     image_url,
     likes = 0,
 }) {
+    const userLikes = JSON.parse(localStorage.getItem('userLikes')) || {};
+
+    const [now, setNow] = useState(new Date());
     const [liked, setLiked] = useState(false);
+    const [newLikes, setNewLikes] = useState(likes + 1);
     const [shared, setShared] = useState(false);
     const [commented, setComment] = useState(false);
     const [saved, setSaved] = useState(false);
     const [IsOpen, setIsOpen] = useState(false);
     const [savePP, setSavePP] = useState(author_imgUrl);
-
-    const [newLikes, setNewLikes] = useState(likes + 1);
     const [newComments, setNewComments] = useState(comments);
+
     useEffect(() => {
-        liked
-            ? setNewLikes((prev) => prev + 1)
-            : setNewLikes((prev) => prev - 1);
+        if (userLikes[id]) setLiked(true);
+    }, []);
+
+    useEffect(() => {
+        handleLikes(setNewLikes, liked, id);
     }, [liked]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setNow(new Date());
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <>
@@ -150,7 +164,10 @@ function Post({
                     )}
 
                     <div className="text-xs text-gray-400">
-                        <DiffDate myDate={new Date(created_at)} />
+                        <DiffDate
+                            myDate={new Date(created_at)}
+                            currentTime={now}
+                        />
                     </div>
                 </div>
             </article>
