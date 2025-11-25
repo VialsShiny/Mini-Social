@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import {Helmet} from 'react-helmet';
 import {useLocation, useNavigate} from 'react-router-dom';
+import {ShowError} from '../components/ui/ShowError';
 import {fetchData} from './../components/services/Fetch';
 import validateInput from './../components/utils/ValidateInput';
 
@@ -21,13 +22,10 @@ export default function SignIn() {
         const {name, value} = e.target;
         setFormData({...formData, [name]: value});
         const isValid = validateInput(name, value);
-
-        if (isValid) {
-            setDisplayError({
-                ...displayError,
-                [name]: false,
-            });
-        }
+        setDisplayError({
+            ...displayError,
+            [name]: isValid,
+        });
     }
 
     async function handleSubmit(e) {
@@ -38,20 +36,27 @@ export default function SignIn() {
 
         if (!email || !password) {
             setDisplayError({
-                ...displayError,
-                email: true,
-                password: true,
-                other: 'Veuillez remplir tous les champs.',
+                email: email ? null : 'Veuillez entrer votre adresse e-mail.',
+                password: password
+                    ? null
+                    : 'Veuillez entrer votre mot de passe.',
             });
             setIsLoading(false);
             return;
         }
 
-        if (!/\S+@\S+\.\S+/.test(email)) {
-            setDisplayError({
-                ...displayError,
-                email: 'Veuillez entrer une adresse e-mail valide.',
-            });
+        const emailValidation = validateInput('email', email);
+        const passwordValidation = validateInput('password', password);
+
+        const errors = {
+            email: emailValidation === true ? null : emailValidation,
+            password: passwordValidation === true ? null : passwordValidation,
+        };
+
+        const hasErrors = Object.values(errors).some((err) => err !== null);
+
+        if (hasErrors) {
+            setDisplayError(errors);
             setIsLoading(false);
             return;
         }
@@ -82,9 +87,8 @@ export default function SignIn() {
         } catch (error) {
             setDisplayError({
                 ...displayError,
-                email: true,
+                email: error.message,
                 password: true,
-                other: error.message,
             });
             setIsLoading(false);
         }
@@ -135,6 +139,12 @@ export default function SignIn() {
                                 value={formData.email}
                                 onChange={handleOnChangeInput}
                             />
+                            {displayError.email && (
+                                <ShowError
+                                    name="email"
+                                    content={displayError.email}
+                                />
+                            )}
                         </div>
                         <div>
                             <label
@@ -156,6 +166,12 @@ export default function SignIn() {
                                 value={formData.password}
                                 onChange={handleOnChangeInput}
                             />
+                            {displayError.password && (
+                                <ShowError
+                                    name="password"
+                                    content={displayError.password}
+                                />
+                            )}
                         </div>
                         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                             <label className="flex items-center text-sm text-gray-600">
