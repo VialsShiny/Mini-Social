@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import {Helmet} from 'react-helmet';
 import {fetchData} from '../components/services/Fetch';
+import {ShowError} from '../components/ui/ShowError';
 import validateInput from '../components/utils/ValidateInput';
 
 export default function SignUp() {
@@ -23,56 +24,57 @@ export default function SignUp() {
     function handleOnChangeInput(e) {
         const {name, value} = e.target;
         setFormData({...formData, [name]: value});
-
-        if (typeof validateInput === 'function') {
-            const isValid = validateInput(name, value);
-            if (isValid) {
-                setDisplayError((prev) => ({...prev, [name]: ''}));
-            }
-        } else {
-            if (value && displayError[name]) {
-                setDisplayError((prev) => ({...prev, [name]: ''}));
-            }
-        }
-
-        if (displayError.other) {
-            setDisplayError((prev) => ({...prev, other: ''}));
-        }
+        const isValid = validateInput(name, value);
+        setDisplayError({
+            ...displayError,
+            [name]: isValid,
+        });
     }
 
     async function handleSubmit(e) {
         e.preventDefault();
         setIsLoading(true);
+
         const apiUrl = import.meta.env.VITE_API_URL;
         const {username, email, password} = formData;
 
-        if (!username || !email || !password) {
+        const errors = {
+            username: username ? null : 'Veuillez entrer un nom d’utilisateur.',
+            email: email ? null : 'Veuillez entrer votre adresse e-mail.',
+            password: password ? null : 'Veuillez entrer votre mot de passe.',
+        };
+
+        const hasEmptyFields = Object.values(errors).some(
+            (err) => err !== null
+        );
+        if (hasEmptyFields) {
             setDisplayError({
                 ...displayError,
-                username: !username ? 'Requis' : '',
-                email: !email ? 'Requis' : '',
-                password: !password ? 'Requis' : '',
+                ...errors,
                 other: 'Veuillez remplir tous les champs.',
             });
             setIsLoading(false);
             return;
         }
 
-        if (!/\S+@\S+\.\S+/.test(email)) {
-            setDisplayError((prev) => ({
-                ...prev,
-                email: 'Veuillez entrer une adresse e-mail valide.',
-            }));
-            setIsLoading(false);
-            return;
-        }
+        const usernameValidation = validateInput('username', username);
+        const emailValidation = validateInput('email', email);
+        const passwordValidation = validateInput('password', password);
 
-        if (password.length < 6) {
-            setDisplayError((prev) => ({
-                ...prev,
-                password:
-                    'Le mot de passe doit contenir au moins 6 caractères.',
-            }));
+        const validationErrors = {
+            username: usernameValidation === true ? null : usernameValidation,
+            email: emailValidation === true ? null : emailValidation,
+            password: passwordValidation === true ? null : passwordValidation,
+        };
+
+        const hasErrors = Object.values(validationErrors).some(
+            (err) => err !== null
+        );
+        if (hasErrors) {
+            setDisplayError({
+                ...displayError,
+                ...validationErrors,
+            });
             setIsLoading(false);
             return;
         }
@@ -114,7 +116,7 @@ export default function SignUp() {
         } catch (error) {
             setDisplayError((prev) => ({
                 ...prev,
-                other: error.message || 'Erreur réseau.',
+                username: error.message || 'Erreur réseau.',
             }));
             setIsLoading(false);
         }
@@ -180,6 +182,12 @@ export default function SignUp() {
                                 value={formData.username}
                                 onChange={handleOnChangeInput}
                             />
+                            {displayError.username && (
+                                <ShowError
+                                    name="username"
+                                    content={displayError.username}
+                                />
+                            )}
                         </div>
 
                         <div>
@@ -200,6 +208,12 @@ export default function SignUp() {
                                 value={formData.email}
                                 onChange={handleOnChangeInput}
                             />
+                            {displayError.email && (
+                                <ShowError
+                                    name="email"
+                                    content={displayError.email}
+                                />
+                            )}
                         </div>
 
                         <div>
@@ -222,6 +236,12 @@ export default function SignUp() {
                                 value={formData.password}
                                 onChange={handleOnChangeInput}
                             />
+                            {displayError.password && (
+                                <ShowError
+                                    name="password"
+                                    content={displayError.password}
+                                />
+                            )}
                         </div>
 
                         <input
@@ -234,12 +254,6 @@ export default function SignUp() {
                             className="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 disabled:bg-gray-500"
                             disabled={isLoading}
                         />
-
-                        {displayError.other && (
-                            <p className="text-red-500 text-sm mt-2 flex items-center justify-center gap-1">
-                                {displayError.other}
-                            </p>
-                        )}
                     </form>
 
                     <p className="text-center text-sm text-gray-600 mt-6">
