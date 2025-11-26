@@ -24,16 +24,19 @@ function Post({
     const [commented, setComment] = useState(false);
     const [saved, setSaved] = useState(false);
     const [IsOpen, setIsOpen] = useState(false);
-    const [savePP, setSavePP] = useState(author_imgUrl);
+    const savePP = author_imgUrl;
     const [newComments, setNewComments] = useState(comments);
 
-    useEffect(() => {
+    useEffect((id) => {
         if (userLikes[id]) setLiked(true);
     }, []);
 
-    useEffect(() => {
-        handleLikes(setNewLikes, liked, id);
-    }, [liked]);
+    useEffect(
+        (id) => {
+            handleLikes(setNewLikes, liked, id);
+        },
+        [liked]
+    );
 
     useEffect(() => {
         const interval = setInterval(() => {
