@@ -53,7 +53,7 @@ export default function SignIn() {
             password: passwordValidation === true ? null : passwordValidation,
         };
 
-        const hasErrors = Object.values(errors).some((err) => err !== null);
+        const hasErrors = Object.values(errors).some((err) => err == null);
 
         if (hasErrors) {
             setDisplayError(errors);
