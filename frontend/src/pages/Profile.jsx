@@ -11,14 +11,12 @@ export default function ProfilePage() {
     const isDesktop = useMediaQuery('(min-width:1024px)');
 
     const {currentUser, setCurrentUser, isAuthenticate} = useAuth();
+    // eslint-disable-next-line no-unused-vars
     const [isAuthenticated, setIsAuthenticated] = useState(isAuthenticate);
     const [isOpen, setIsOpen] = useState(isDesktop);
     const {username, image_url, email, created_at} = currentUser;
     const [token, setToken] = useState(localStorage.getItem('token') || null);
     const [locationData] = useState(location.state);
-    const apiUrl = import.meta.env.VITE_API_URL;
-
-    function handleUpdateProfil(event, name, id) {}
 
     function handleLogOut() {
         localStorage.clear();

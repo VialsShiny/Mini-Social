@@ -1,3 +1,4 @@
+import throwError from './throwError';
 export const fetchData = async (url, options = {}) => {
     try {
         const res = await fetch(url, {
@@ -14,7 +15,7 @@ export const fetchData = async (url, options = {}) => {
 
         return await res.json();
     } catch (error) {
-        console.error('Fetch error:', error);
+        throwError(error, 'Fetch error');
         return null;
     }
 };

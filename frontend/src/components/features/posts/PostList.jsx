@@ -15,7 +15,7 @@ export default function PostList() {
             })
             .catch(() => {})
             .finally(() => setIsLoading(false));
-    }, []);
+    }, [apiUrl]);
 
     if (isLoading) {
         return (

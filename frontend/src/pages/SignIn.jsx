@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {Helmet} from 'react-helmet';
-import {useLocation, useNavigate} from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
 import {ShowError} from '../components/ui/ShowError';
 import {fetchData} from './../components/services/Fetch';
 import validateInput from './../components/utils/ValidateInput';
@@ -14,7 +14,6 @@ export default function SignIn() {
         password: '',
     });
     const [isLoading, setIsLoading] = useState(false);
-    const navigate = useNavigate();
     const location = useLocation();
     const [locationData] = useState(location.state);
 

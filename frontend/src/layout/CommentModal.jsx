@@ -2,6 +2,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import {useState} from 'react';
 import {fetchData} from '../components/services/Fetch';
+import throwError from '../components/services/throwError';
 import FormatForm from '../components/utils/FormatForm';
 import {useAuth} from '../providers/AuthProviders';
 import {Comments} from './../components/ui/Comments';
@@ -29,7 +30,7 @@ async function handleComment(
         },
         body: JSON.stringify({comment: comment}),
     }).catch((error) => {
-        console.error(error);
+        throwError(error);
     });
 
     setComment((prev) => [
@@ -49,7 +50,6 @@ export default function CommentsModal({
     isOpen,
     onClose,
     comments = [],
-    setComment,
     postId = 0,
 }) {
     const [newComments, setNewComments] = useState(comments);

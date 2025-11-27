@@ -15,7 +15,7 @@ export default function PostDetails() {
         fetchData(`${apiUrl}api/posts/${id}`)
             .then((data) => setPost(data.post))
             .catch((error) => setError(error));
-    }, [id]);
+    }, [id, apiUrl]);
 
     if (error)
         return (

@@ -3,6 +3,7 @@ import {memo, useEffect, useState} from 'react';
 import {useAuth} from '../../../providers/AuthProviders';
 import MobileOverlay from '../../layout/MobileOverlay';
 import {fetchData} from '../../services/Fetch';
+import throwError from '../../services/throwError';
 import ActionButtonsPost from '../../ui/ActionButtonsPost';
 import {Comments} from '../../ui/Comments';
 import {DiffDate} from '../../utils/DiffDate';
@@ -29,7 +30,7 @@ function PostDetail({
     const [commented, setComment] = useState(false);
     const [saved, setSaved] = useState(false);
     const [IsOpen, setIsOpen] = useState(isDesktop);
-    const [authorPP, setAuthorPP] = useState(author_image_url);
+    const authorPP = author_image_url;
 
     const {currentUser} = useAuth();
     const currentToken = localStorage.getItem('token');
@@ -41,10 +42,12 @@ function PostDetail({
 
     useEffect(() => {
         if (userLikes[id]) setLiked(true);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         handleLikes(setNewLikes, liked, id);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [liked]);
 
     useEffect(() => {
@@ -77,7 +80,7 @@ function PostDetail({
             },
             body: JSON.stringify({comment: comment}),
         }).catch((error) => {
-            console.error(error);
+            throwError(error);
         });
 
         setComment((prev) => [
