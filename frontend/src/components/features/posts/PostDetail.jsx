@@ -1,14 +1,14 @@
 import useMediaQuery from '@mui/material/useMediaQuery';
-import {memo, useEffect, useState} from 'react';
-import {useAuth} from '../../../providers/AuthProviders';
+import { memo, useEffect, useState } from 'react';
+import { useAuth } from '../../../providers/AuthProviders';
 import MobileOverlay from '../../layout/MobileOverlay';
-import {fetchData} from '../../services/Fetch';
+import { fetchData } from '../../services/Fetch';
 import throwError from '../../services/throwError';
 import ActionButtonsPost from '../../ui/ActionButtonsPost';
-import {Comments} from '../../ui/Comments';
-import {DiffDate} from '../../utils/DiffDate';
+import { Comments } from '../../ui/Comments';
+import { DiffDate } from '../../utils/DiffDate';
 import FormatForm from '../../utils/FormatForm';
-import {handleLikes} from '../../utils/HandleLikes';
+import { handleLikes } from '../../utils/HandleLikes';
 
 function PostDetail({
     author = 'default_user',
@@ -32,7 +32,7 @@ function PostDetail({
     const [IsOpen, setIsOpen] = useState(isDesktop);
     const authorPP = author_image_url;
 
-    const {currentUser} = useAuth();
+    const { currentUser } = useAuth();
     const currentToken = localStorage.getItem('token');
     const currentUserName = currentUser.username;
     const currentUserPP = currentUser.image_url;
@@ -41,7 +41,7 @@ function PostDetail({
     const [newComments, setNewComments] = useState(comments);
 
     useEffect(() => {
-        if (userLikes[id]) setLiked(true);
+        if (userLikes[id]) {setLiked(true);}
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -64,13 +64,13 @@ function PostDetail({
         token,
         username,
         user_image_url,
-        id
+        id,
     ) {
         event.preventDefault();
 
-        const {comment} = FormatForm(event);
+        const { comment } = FormatForm(event);
 
-        if (!comment) return;
+        if (!comment) {return;}
 
         fetchData(`${apiUrl}api/posts/${id}/comments`, {
             method: 'POST',
@@ -78,7 +78,7 @@ function PostDetail({
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
             },
-            body: JSON.stringify({comment: comment}),
+            body: JSON.stringify({ comment: comment }),
         }).catch((error) => {
             throwError(error);
         });
@@ -294,7 +294,7 @@ function PostDetail({
                                         currentToken,
                                         currentUserName,
                                         currentUserPP,
-                                        id
+                                        id,
                                     );
                                 }}
                             >
@@ -372,7 +372,7 @@ function PostDetail({
                                         currentToken,
                                         currentUserName,
                                         currentUserPP,
-                                        id
+                                        id,
                                     )
                                 }
                             >

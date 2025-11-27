@@ -1,4 +1,4 @@
-export const Loader = ({loader = ''}) => {
+export const Loader = ({ loader = '' }) => {
     switch (loader) {
         case 'dote':
             return (

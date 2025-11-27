@@ -1,8 +1,8 @@
-import {useState} from 'react';
-import {Helmet} from 'react-helmet';
-import {useLocation} from 'react-router-dom';
-import {ShowError} from '../components/ui/ShowError';
-import {fetchData} from './../components/services/Fetch';
+import { useState } from 'react';
+import { Helmet } from 'react-helmet';
+import { useLocation } from 'react-router-dom';
+import { ShowError } from '../components/ui/ShowError';
+import { fetchData } from './../components/services/Fetch';
 import validateInput from './../components/utils/ValidateInput';
 
 export default function SignIn() {
@@ -18,8 +18,8 @@ export default function SignIn() {
     const [locationData] = useState(location.state);
 
     function handleOnChangeInput(e) {
-        const {name, value} = e.target;
-        setFormData({...formData, [name]: value});
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
         const isValid = validateInput(name, value);
         setDisplayError({
             ...displayError,
@@ -30,7 +30,7 @@ export default function SignIn() {
     async function handleSubmit(e) {
         e.preventDefault();
         setIsLoading(true);
-        const {email, password} = formData;
+        const { email, password } = formData;
         const apiUrl = import.meta.env.VITE_API_URL;
 
         if (!email || !password) {
@@ -53,7 +53,7 @@ export default function SignIn() {
         };
 
         const hasErrors = Object.values(validationErrors).some(
-            (err) => err !== false
+            (err) => err !== false,
         );
 
         if (hasErrors) {
@@ -65,7 +65,7 @@ export default function SignIn() {
         try {
             const data = await fetchData(`${apiUrl}api/auth/login`, {
                 method: 'POST',
-                header: {'Content-Type': 'application/json'},
+                header: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
             });
 

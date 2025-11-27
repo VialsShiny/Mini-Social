@@ -1,8 +1,8 @@
-import {memo, useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
+import { memo, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import CommentsModal from '../../../layout/CommentModal';
-import {DiffDate} from '../../utils/DiffDate';
-import {handleLikes} from '../../utils/HandleLikes';
+import { DiffDate } from '../../utils/DiffDate';
+import { handleLikes } from '../../utils/HandleLikes';
 import ActionButtonsPost from './../../ui/ActionButtonsPost';
 
 function Post({

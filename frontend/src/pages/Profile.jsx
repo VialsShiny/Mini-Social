@@ -1,20 +1,20 @@
 import useMediaQuery from '@mui/material/useMediaQuery';
-import {useState} from 'react';
-import {Helmet} from 'react-helmet';
-import {MdEdit} from 'react-icons/md';
+import { useState } from 'react';
+import { Helmet } from 'react-helmet';
+import { MdEdit } from 'react-icons/md';
 import ProfileForm from '../components/features/profiles/ProfileForm';
 import MobileOverlay from '../components/layout/MobileOverlay';
-import {Loader} from '../components/ui/Loader';
-import {useAuth} from '../providers/AuthProviders';
+import { Loader } from '../components/ui/Loader';
+import { useAuth } from '../providers/AuthProviders';
 
 export default function ProfilePage() {
     const isDesktop = useMediaQuery('(min-width:1024px)');
 
-    const {currentUser, setCurrentUser, isAuthenticate} = useAuth();
+    const { currentUser, setCurrentUser, isAuthenticate } = useAuth();
     // eslint-disable-next-line no-unused-vars
     const [isAuthenticated, setIsAuthenticated] = useState(isAuthenticate);
     const [isOpen, setIsOpen] = useState(isDesktop);
-    const {username, image_url, email, created_at} = currentUser;
+    const { username, image_url, email, created_at } = currentUser;
     const [token, setToken] = useState(localStorage.getItem('token') || null);
     const [locationData] = useState(location.state);
 

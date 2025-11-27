@@ -1,11 +1,11 @@
-import React, {Suspense} from 'react';
-import {BrowserRouter, Outlet, Route, Routes} from 'react-router-dom';
-import {NavBar} from './components/layout/NavBar';
-import {ProtectedRoute} from './components/routing/ProtectedRoute';
-import {Loader} from './components/ui/Loader';
+import React, { Suspense } from 'react';
+import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
+import { NavBar } from './components/layout/NavBar';
+import { ProtectedRoute } from './components/routing/ProtectedRoute';
+import { Loader } from './components/ui/Loader';
 import _404 from './pages/errors/_404';
 import Profile from './pages/Profile';
-import {AuthProviders} from './providers/AuthProviders';
+import { AuthProviders } from './providers/AuthProviders';
 const Home = React.lazy(() => import('./pages/Home'));
 const SignIn = React.lazy(() => import('./pages/SignIn'));
 const SignUp = React.lazy(() => import('./pages/SignUp'));

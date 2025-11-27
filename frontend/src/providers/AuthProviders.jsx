@@ -1,11 +1,11 @@
-import {createContext, useContext, useEffect, useState} from 'react';
-import {fetchData} from '../components/services/Fetch';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { fetchData } from '../components/services/Fetch';
 import throwError from '../components/services/throwError';
-import {Loader} from '../components/ui/Loader';
+import { Loader } from '../components/ui/Loader';
 
 const AuthContext = createContext();
 
-export const AuthProviders = ({children}) => {
+export const AuthProviders = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -13,12 +13,12 @@ export const AuthProviders = ({children}) => {
         async function validateToken() {
             const apiUrl = import.meta.env.VITE_API_URL;
             const token = localStorage.getItem('token') || null;
-            if (!token) return setLoading(false);
+            if (!token) {return setLoading(false);}
             fetchData(`${apiUrl}api/auth/me`, {
-                headers: {Authorization: `Bearer ${token}`},
+                headers: { Authorization: `Bearer ${token}` },
             })
                 .then((data) => {
-                    const {user} = data;
+                    const { user } = data;
                     setLoading(false);
                     return setCurrentUser(user);
                 })
