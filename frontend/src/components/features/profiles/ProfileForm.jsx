@@ -1,19 +1,20 @@
-import {useRef, useState} from 'react';
-import {MdEdit} from 'react-icons/md';
-import {useAuth} from '../../../providers/AuthProviders';
-import {fetchData} from '../../services/Fetch';
+import { useRef, useState } from 'react';
+import { MdEdit } from 'react-icons/md';
+import { useAuth } from '../../../providers/AuthProviders';
+import { fetchData } from '../../services/Fetch';
+import throwError from '../../services/throwError';
 
-export default function ProfileForm({username, image_url, onClose}) {
+export default function ProfileForm({ username, image_url, onClose }) {
     const [name, setName] = useState(username);
     const [avatar, setAvatar] = useState(image_url);
     const [isLoading, setIsLoading] = useState(false);
-    const [errors, setErrors] = useState({name: '', avatar: ''});
+    const [errors, setErrors] = useState({ name: '', avatar: '' });
     const [succes, setSucces] = useState(false);
 
     const initialName = useRef(username);
     const initialAvatar = useRef(image_url);
 
-    const {setCurrentUser} = useAuth();
+    const { setCurrentUser } = useAuth();
     const token = localStorage.getItem('token');
     const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -25,7 +26,7 @@ export default function ProfileForm({username, image_url, onClose}) {
         const avatarChanged = avatar !== initialAvatar.current;
 
         if (name.trim() === '') {
-            setErrors({...errors, name: 'Le nom ne peut pas être vide.'});
+            setErrors({ ...errors, name: 'Le nom ne peut pas être vide.' });
             setSucces(false);
             setIsLoading(false);
             return;
@@ -33,18 +34,18 @@ export default function ProfileForm({username, image_url, onClose}) {
 
         const urlRegex = /^https?:\/\/[^\s]+$/i;
         if (avatar.trim() !== '' && !urlRegex.test(avatar)) {
-            setErrors({...errors, avatar: "URL d'avatar invalide."});
+            setErrors({ ...errors, avatar: "URL d'avatar invalide." });
             setSucces(false);
             setIsLoading(false);
             return;
         }
 
         if (!nameChanged && !avatarChanged)
-            return setSucces(false) || setIsLoading(false);
+        {return setSucces(false) || setIsLoading(false);}
 
         const newData = {};
-        if (nameChanged) newData.username = name;
-        if (avatarChanged) newData.image_url = avatar;
+        if (nameChanged) {newData.username = name;}
+        if (avatarChanged) {newData.image_url = avatar;}
 
         const data = await fetchData(`${apiUrl}api/auth/update-profile`, {
             method: 'PUT',
@@ -56,7 +57,7 @@ export default function ProfileForm({username, image_url, onClose}) {
         });
 
         if (!data || data.error) {
-            console.log(data);
+            throwError(data);
             setIsLoading(false);
             return;
         } else {

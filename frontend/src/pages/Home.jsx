@@ -1,4 +1,4 @@
-import {Helmet} from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import PostList from './../components/features/posts/PostList';
 
 export default function Home() {

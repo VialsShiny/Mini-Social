@@ -1,6 +1,7 @@
-import {useEffect, useState} from 'react';
-import {fetchData} from '../../services/Fetch';
-import {Loader} from './../../ui/Loader';
+import { useEffect, useState } from 'react';
+import { fetchData } from '../../services/Fetch';
+import throwError from '../../services/throwError';
+import { Loader } from './../../ui/Loader';
 import Post from './Post';
 
 export default function PostList() {
@@ -13,14 +14,16 @@ export default function PostList() {
             .then((data) => {
                 setPosts(data.posts ?? []);
             })
-            .catch(() => {})
+            .catch((error) => {
+                throwError(error);
+            })
             .finally(() => setIsLoading(false));
-    }, []);
+    }, [apiUrl]);
 
     if (isLoading) {
         return (
             <div className="flex flex-wrap gap-12 my-12">
-                {Array.from({length: 8}).map((_, i) => (
+                {Array.from({ length: 8 }).map((_, i) => (
                     <Loader loader="post-load" key={i} />
                 ))}
             </div>

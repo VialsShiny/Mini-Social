@@ -1,4 +1,4 @@
-export const Comments = ({comment, index}) => {
+export const Comments = ({ comment, index }) => {
     return (
         <div key={index} className="flex items-start gap-3">
             <img

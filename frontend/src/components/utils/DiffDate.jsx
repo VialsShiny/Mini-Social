@@ -1,4 +1,4 @@
-export const DiffDate = ({myDate = new Date()}) => {
+export const DiffDate = ({ myDate = new Date() }) => {
     const currentDate = new Date();
 
     const diffMs = currentDate.getTime() - myDate.getTime();

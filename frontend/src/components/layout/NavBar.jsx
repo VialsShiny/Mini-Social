@@ -1,15 +1,15 @@
 import useMediaQuery from '@mui/material/useMediaQuery';
-import {useState} from 'react';
-import {FiHome, FiLogIn, FiLogOut, FiUserPlus} from 'react-icons/fi';
-import {Link, useLocation} from 'react-router-dom';
-import {useAuth} from '../../providers/AuthProviders';
+import { useState } from 'react';
+import { FiHome, FiLogIn, FiLogOut, FiUserPlus } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../providers/AuthProviders';
 
 export const NavBar = () => {
-    const location = useLocation();
-    const {currentUser, setCurrentUser, isAuthenticate} = useAuth();
+    const { currentUser, setCurrentUser, isAuthenticate } = useAuth();
     const [isAuthenticated, setIsAuthenticated] = useState(isAuthenticate);
     const isDesktop = useMediaQuery('(min-width:1024px)');
 
+    // eslint-disable-next-line no-unused-vars
     const [token, setToken] = useState(localStorage.getItem('token') || null);
 
     function handleLogOut() {
@@ -66,7 +66,7 @@ export const NavBar = () => {
                                     onClick={() => {
                                         handleLogOut(
                                             currentUser,
-                                            isAuthenticate
+                                            isAuthenticate,
                                         );
                                     }}
                                 >

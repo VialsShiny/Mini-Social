@@ -1,8 +1,8 @@
-import {memo, useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
+import { memo, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import CommentsModal from '../../../layout/CommentModal';
-import {DiffDate} from '../../utils/DiffDate';
-import {handleLikes} from '../../utils/HandleLikes';
+import { DiffDate } from '../../utils/DiffDate';
+import { handleLikes } from '../../utils/HandleLikes';
 import ActionButtonsPost from './../../ui/ActionButtonsPost';
 
 function Post({
@@ -27,16 +27,17 @@ function Post({
     const savePP = author_imgUrl;
     const [newComments, setNewComments] = useState(comments);
 
-    useEffect((id) => {
-        if (userLikes[id]) setLiked(true);
-    }, []);
+    useEffect(() => {
+        if (userLikes[id]) {
+            setLiked(true);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id]);
 
-    useEffect(
-        (id) => {
-            handleLikes(setNewLikes, liked, id);
-        },
-        [liked]
-    );
+    useEffect(() => {
+        handleLikes(setNewLikes, liked, id);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [liked]);
 
     useEffect(() => {
         const interval = setInterval(() => {

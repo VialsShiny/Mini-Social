@@ -1,7 +1,7 @@
-import {useState} from 'react';
-import {Helmet} from 'react-helmet';
-import {fetchData} from '../components/services/Fetch';
-import {ShowError} from '../components/ui/ShowError';
+import { useState } from 'react';
+import { Helmet } from 'react-helmet';
+import { fetchData } from '../components/services/Fetch';
+import { ShowError } from '../components/ui/ShowError';
 import validateInput from '../components/utils/ValidateInput';
 
 export default function SignUp() {
@@ -22,8 +22,8 @@ export default function SignUp() {
     const [isLoading, setIsLoading] = useState(false);
 
     function handleOnChangeInput(e) {
-        const {name, value} = e.target;
-        setFormData({...formData, [name]: value});
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
         const isValid = validateInput(name, value);
         setDisplayError({
             ...displayError,
@@ -36,7 +36,7 @@ export default function SignUp() {
         setIsLoading(true);
 
         const apiUrl = import.meta.env.VITE_API_URL;
-        const {username, email, password} = formData;
+        const { username, email, password } = formData;
 
         const errors = {
             username: username ? null : 'Veuillez entrer un nom d’utilisateur.',
@@ -45,7 +45,7 @@ export default function SignUp() {
         };
 
         const hasEmptyFields = Object.values(errors).some(
-            (err) => err !== null
+            (err) => err !== null,
         );
         if (hasEmptyFields) {
             setDisplayError({
@@ -68,14 +68,11 @@ export default function SignUp() {
         };
 
         const hasErrors = Object.values(validationErrors).some(
-            (err) => err == null
+            (err) => err !== false,
         );
+
         if (hasErrors) {
-            setDisplayError({
-                ...displayError,
-                ...validationErrors,
-            });
-            console.log('teste');
+            setDisplayError(validationErrors);
             setIsLoading(false);
             return;
         }
@@ -109,7 +106,7 @@ export default function SignUp() {
             if (data.token) {
                 localStorage.setItem('token', data.token);
             }
-            setDisplayError({username: '', email: '', password: '', other: ''});
+            setDisplayError({ username: '', email: '', password: '', other: '' });
             setTimeout(() => {
                 window.location.href = '/';
                 setIsLoading(false);
