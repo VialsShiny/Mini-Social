@@ -48,15 +48,17 @@ export default function SignIn() {
         const emailValidation = validateInput('email', email);
         const passwordValidation = validateInput('password', password);
 
-        const errors = {
-            email: emailValidation === true ? null : emailValidation,
-            password: passwordValidation === true ? null : passwordValidation,
+        const validationErrors = {
+            email: emailValidation === true ? false : emailValidation,
+            password: passwordValidation === true ? false : passwordValidation,
         };
 
-        const hasErrors = Object.values(errors).some((err) => err == null);
+        const hasErrors = Object.values(validationErrors).some(
+            (err) => err !== false
+        );
 
         if (hasErrors) {
-            setDisplayError(errors);
+            setDisplayError(validationErrors);
             setIsLoading(false);
             return;
         }

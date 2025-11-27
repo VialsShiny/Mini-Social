@@ -68,14 +68,11 @@ export default function SignUp() {
         };
 
         const hasErrors = Object.values(validationErrors).some(
-            (err) => err == null
+            (err) => err !== false
         );
+
         if (hasErrors) {
-            setDisplayError({
-                ...displayError,
-                ...validationErrors,
-            });
-            console.log('teste');
+            setDisplayError(validationErrors);
             setIsLoading(false);
             return;
         }
