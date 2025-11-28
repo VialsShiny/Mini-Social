@@ -1,40 +1,41 @@
 {
-  "name": "vite-react-app",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives",
-    "lint:fix": "eslint --fix --ext .js,.jsx .",
-    "test": "vitest run",
-    "lhci": "lhci"
-  },
-  "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "@mui/material": "^7.3.4",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-helmet": "^6.1.0",
-    "react-icons": "^5.5.0",
-    "react-router-dom": "^7.9.4",
-    "socket.io-client": "^4.7.2"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.39.1",
-    "@lhci/cli": "^0.15.1",
-    "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^16.3.0",
-    "@vitejs/plugin-react": "^4.3.1",
-    "eslint": "^9.39.1",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react-refresh": "^0.4.24",
-    "globals": "^16.5.0",
-    "jsdom": "^27.2.0",
-    "react-refresh": "^0.18.0",
-    "vite": "^5.2.0",
-    "vitest": "^4.0.12"
-  }
+    "name": "vite-react-app",
+    "version": "1.0.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "lint": "eslint . --ext js,jsx --report-unused-disable-directives",
+        "lint:fix": "eslint --fix --ext .js,.jsx .",
+        "test": "vitest run",
+        "lhci": "lhci"
+    },
+    "dependencies": {
+        "@emotion/react": "^11.14.0",
+        "@emotion/styled": "^11.14.1",
+        "@mui/material": "^7.3.4",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "react-helmet": "^6.1.0",
+        "react-icons": "^5.5.0",
+        "react-router-dom": "^7.9.4",
+        "socket.io-client": "^4.7.2"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.39.1",
+        "@lhci/cli": "^0.15.1",
+        "@testing-library/jest-dom": "^6.9.1",
+        "@testing-library/react": "^16.3.0",
+        "@vitejs/plugin-react": "^4.3.1",
+        "eslint": "^9.39.1",
+        "eslint-plugin-react-hooks": "^7.0.1",
+        "eslint-plugin-react-refresh": "^0.4.24",
+        "globals": "^16.5.0",
+        "jsdom": "^27.2.0",
+        "react-refresh": "^0.18.0",
+        "vite": "^5.2.0",
+        "vitest": "^4.0.12"
+    }
 }

@@ -1,12 +1,14 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
+#!/usr/bin/env node
 
-echo "👉 Running lint (frontend)..."
-cd frontend
-npm run lint || exit 1
+const { execSync } = require("child_process");
 
-echo "👉 Running Lighthouse (frontend)..."
-npm run lhci autorun || exit 1
-
-cd ..
-echo "✔️ All frontend checks passed."
+try {
+  console.log("👉 Running lint (frontend)...");
+  execSync("cd frontend && npm run lint", { stdio: "inherit" });
+  console.log("👉 Running lhci (frontend)...");
+  execSync("cd frontend && npm run lhci autorun", { stdio: "inherit" });
+  console.log("✅ All frontend checks passed.");
+} catch (err) {
+  console.error("❌ Checks failed, push aborted.");
+  process.exit(1);
+}
