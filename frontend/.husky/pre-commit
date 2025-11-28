@@ -1,5 +1,0 @@
-echo "Running lint..."
-npm run lint || exit 1
-
-echo "Running Lighthouse..."
-npm run lhci autorun || exit 1

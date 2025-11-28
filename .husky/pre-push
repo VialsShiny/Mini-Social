@@ -1,0 +1,12 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "👉 Running lint (frontend)..."
+cd frontend
+npm run lint || exit 1
+
+echo "👉 Running Lighthouse (frontend)..."
+npm run lhci autorun || exit 1
+
+cd ..
+echo "✔️ All frontend checks passed."

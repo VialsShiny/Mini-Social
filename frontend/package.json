@@ -9,8 +9,7 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives",
     "lint:fix": "eslint --fix --ext .js,.jsx .",
     "test": "vitest run",
-    "lhci": "lhci",
-    "prepare": "husky"
+    "lhci": "lhci"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -33,7 +32,6 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
-    "husky": "^9.1.7",
     "jsdom": "^27.2.0",
     "react-refresh": "^0.18.0",
     "vite": "^5.2.0",
