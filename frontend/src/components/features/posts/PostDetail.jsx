@@ -1,14 +1,14 @@
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { memo, useEffect, useState } from 'react';
-import { useAuth } from '../../../providers/AuthProviders';
+import {memo, useEffect, useState} from 'react';
+import {useAuth} from '../../../providers/AuthProviders';
 import MobileOverlay from '../../layout/MobileOverlay';
-import { fetchData } from '../../services/Fetch';
+import {fetchData} from '../../services/Fetch';
 import throwError from '../../services/throwError';
 import ActionButtonsPost from '../../ui/ActionButtonsPost';
-import { Comments } from '../../ui/Comments';
-import { DiffDate } from '../../utils/DiffDate';
+import {Comments} from '../../ui/Comments';
+import {DiffDate} from '../../utils/DiffDate';
 import FormatForm from '../../utils/FormatForm';
-import { handleLikes } from '../../utils/HandleLikes';
+import {handleLikes} from '../../utils/HandleLikes';
 
 function PostDetail({
     author = 'default_user',
@@ -32,7 +32,7 @@ function PostDetail({
     const [IsOpen, setIsOpen] = useState(isDesktop);
     const authorPP = author_image_url;
 
-    const { currentUser } = useAuth();
+    const {currentUser} = useAuth();
     const currentToken = localStorage.getItem('token');
     const currentUserName = currentUser.username;
     const currentUserPP = currentUser.image_url;
@@ -41,7 +41,9 @@ function PostDetail({
     const [newComments, setNewComments] = useState(comments);
 
     useEffect(() => {
-        if (userLikes[id]) {setLiked(true);}
+        if (userLikes[id]) {
+            setLiked(true);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -64,13 +66,15 @@ function PostDetail({
         token,
         username,
         user_image_url,
-        id,
+        id
     ) {
         event.preventDefault();
 
-        const { comment } = FormatForm(event);
+        const {comment} = FormatForm(event);
 
-        if (!comment) {return;}
+        if (!comment) {
+            return;
+        }
 
         fetchData(`${apiUrl}api/posts/${id}/comments`, {
             method: 'POST',
@@ -78,7 +82,7 @@ function PostDetail({
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
             },
-            body: JSON.stringify({ comment: comment }),
+            body: JSON.stringify({comment: comment}),
         }).catch((error) => {
             throwError(error);
         });
@@ -97,10 +101,10 @@ function PostDetail({
     }
 
     return (
-        <div className="w-full max-h-[85vh] mx-12 flex gap-6 bg-white/80 justify-center md:flex-row flex-col">
+        <div className="w-full h-fit px-12 py-12 mb-6 lg:mb-0 flex gap-6 bg-white/80 justify-center md:flex-row flex-col">
             {/* Post */}
             <article
-                className="flex-1 md:max-w-1/3 max-h-[85vh] bg-white rounded-lg border border-gray-100 shadow-sm overflow-hidden flex flex-col"
+                className="flex-1 w-full lg:max-w-1/3 h-fit bg-white rounded-lg border border-gray-100 shadow-sm flex flex-col"
                 aria-labelledby={`cap-${id}`}
             >
                 <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-white flex-shrink-0">
@@ -136,7 +140,7 @@ function PostDetail({
                     <img
                         src={`${image_url}.webp`}
                         alt={content.slice(0, 120) || 'post image'}
-                        className="w-full max-h-[50vh] object-contain bg-black border-y border-gray-100 flex-shrink-0"
+                        className="w-full lg:max-h-[50vh] object-contain bg-black border-y border-gray-100 flex-shrink-0"
                         loading="lazy"
                         fetchpriority="high"
                     />
@@ -237,7 +241,7 @@ function PostDetail({
                 <aside
                     className={`flex flex-col bg-gray-50 border border-gray-100 rounded-lg shadow-sm transition-all duration-300 ease-in-out ${
                         IsOpen
-                            ? 'w-[360px] md:max-w-[40%] max-h-[85vh] opacity-100 visible'
+                            ? 'w-[360px] md:max-w-[40%] min-h-full opacity-100 visible'
                             : 'w-0 max-w-0 h-0 opacity-0 invisible overflow-hidden border-0'
                     }`}
                 >
@@ -294,7 +298,7 @@ function PostDetail({
                                         currentToken,
                                         currentUserName,
                                         currentUserPP,
-                                        id,
+                                        id
                                     );
                                 }}
                             >
@@ -372,7 +376,7 @@ function PostDetail({
                                         currentToken,
                                         currentUserName,
                                         currentUserPP,
-                                        id,
+                                        id
                                     )
                                 }
                             >
