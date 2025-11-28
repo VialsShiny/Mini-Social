@@ -1,12 +1,12 @@
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Slide from '@mui/material/Slide';
-import {useState} from 'react';
-import {fetchData} from '../components/services/Fetch';
+import { useState } from 'react';
+import { fetchData } from '../components/services/Fetch';
 import throwError from '../components/services/throwError';
 import FormatForm from '../components/utils/FormatForm';
-import {useAuth} from '../providers/AuthProviders';
-import {Comments} from './../components/ui/Comments';
+import { useAuth } from '../providers/AuthProviders';
+import { Comments } from './../components/ui/Comments';
 
 async function handleComment(
     setComment,
@@ -14,14 +14,14 @@ async function handleComment(
     token,
     username,
     user_image_url,
-    id
+    id,
 ) {
     event.preventDefault();
     const apiUrl = import.meta.env.VITE_API_URL;
 
-    const {comment} = FormatForm(event);
+    const { comment } = FormatForm(event);
 
-    if (!comment) return;
+    if (!comment) {return;}
 
     fetchData(`${apiUrl}api/posts/${id}/comments`, {
         method: 'POST',
@@ -29,7 +29,7 @@ async function handleComment(
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({comment: comment}),
+        body: JSON.stringify({ comment: comment }),
     }).catch((error) => {
         throwError(error);
     });
@@ -54,7 +54,7 @@ export default function CommentsModal({
     postId = 0,
 }) {
     const [newComments, setNewComments] = useState(comments);
-    const {currentUser} = useAuth();
+    const { currentUser } = useAuth();
     const currentToken = localStorage.getItem('token') ?? '';
     const currentUserName = currentUser?.username;
     const currentUserPP = currentUser?.image_url;
@@ -118,7 +118,7 @@ export default function CommentsModal({
                                         currentToken,
                                         currentUserName,
                                         currentUserPP,
-                                        id
+                                        id,
                                     )
                                 }
                             >
