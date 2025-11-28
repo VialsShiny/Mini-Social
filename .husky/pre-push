@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+
+const { execSync } = require("child_process");
+
+try {
+  console.log("👉 Running lint (frontend)...");
+  execSync("cd frontend && npm run lint", { stdio: "inherit" });
+  console.log("👉 Running lhci (frontend)...");
+  execSync("cd frontend && npm run lhci autorun", { stdio: "inherit" });
+  console.log("✅ All frontend checks passed.");
+} catch (err) {
+  console.error("❌ Checks failed, push aborted.");
+  process.exit(1);
+}
