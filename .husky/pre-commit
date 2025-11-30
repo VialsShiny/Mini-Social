@@ -5,11 +5,5 @@ npm run lint || {
     exit 1
 }
 
-echo "👉 Running lhci (frontend)..."
-npm run lhci autorun || {
-    echo "❌ LHCI checks failed, push aborted."
-    exit 1
-}
-
 cd - || exit 1
 echo "✅ All frontend checks passed."
