@@ -1,3 +1,5 @@
+import { useAuth } from '../../providers/AuthProviders';
+
 export default function ActionButtonsPost({
     classDefault,
     classFocus,
@@ -9,9 +11,16 @@ export default function ActionButtonsPost({
     onOpenComments,
 }) {
     const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+    const { currentUser } = useAuth();
     const handleClick = (label) => {
         if (label === 'comment') {
-            if (onOpenComments) {onOpenComments();}
+            if (onOpenComments) {
+                onOpenComments();
+            }
+        } else if (label === 'like') {
+            if (currentUser) {
+                setAction((prev) => !prev);
+            }
         } else {
             setAction((prev) => !prev);
         }
